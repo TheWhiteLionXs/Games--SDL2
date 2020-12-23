@@ -5,6 +5,8 @@
 #include "Background.h"
 #include "Enemy.h"
 #include "Projectile.h"
+#include "Text.h"
+#include "Audio.h"
 
 #include <list>
 
@@ -17,11 +19,15 @@ public:
 	void update() override;
 	void draw() override;
 	void keysToControls(SDL_Event event);
-
+	
+	Audio* audioBackground;
+	Text* textPoints;
+	int points;
 	int newEnemyTime = 0;
 
 	Player* player;
 	Background* background;
+	Actor* backgroundPoints;
 	bool controlShoot = false;
 
 	int controlMoveY = 0;

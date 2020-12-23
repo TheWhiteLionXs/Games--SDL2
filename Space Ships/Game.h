@@ -6,6 +6,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <map>
 
 #include "Layer.h"
 
@@ -23,6 +24,9 @@ public:
 	Game();
 	void loop();
 	void scale();
+	SDL_Texture* getTexture(string filename);
+	map<string, SDL_Texture*> mapTextures;
+	TTF_Font* font;
 	bool scaledToMax = false;
 	float scaleLower = 1;
 	SDL_Window* window; //Ventana

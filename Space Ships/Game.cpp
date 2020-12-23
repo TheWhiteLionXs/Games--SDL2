@@ -39,14 +39,40 @@ Game::Game()
 	{
 		cout << "Error Window y Renderer" << SDL_GetError() << endl;
 	}
+
+	SDL_ShowCursor(0);
+
 	SDL_SetWindowTitle(window, "Juego de Naves");
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-
+		
 	gameLayer = new GameLayer(this);
 
-	loopActive = true; //El bucle esta activo
+	//Fonts
+	TTF_Init();
+	font = TTF_OpenFont("res/sans.ttf", 24);
+
+	loopActive = true; //The loop is active
 	loop();
 }
+
+SDL_Texture* Game::getTexture(string filename)
+{
+	if (mapTextures.find(filename) != mapTextures.end())
+	{
+		cout << "Retorno recurso cacheado" << filename << endl;
+	}
+	else
+	{
+		cout << "Nuevo hay que cachearlo" << filename << endl;
+		SDL_Surface* surface = IMG_Load(filename.c_str());
+		SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+		mapTextures[filename] = texture;
+	}
+
+	return mapTextures[filename];
+
+}
+
 void Game::loop()
 {
 	int initTick; //Milisegundos al inicio del loop
